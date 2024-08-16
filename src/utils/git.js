@@ -37,7 +37,7 @@ export async function getGitRepoDetails() {
   if (repoDetails && repoDetails.length >= 3) {
     const owner = repoDetails[1];
     const repoName = repoDetails[2];
-    vscode.window.showInformationMessage(`Owner: ${owner}, Repository: ${repoName}`);
+    vscode.window.showInformationMessage(`Owner: ${owner}, Repository: ${repoName}, Current Branch: ${currentBranch}`);
     return { owner, repoName, currentBranch };
   } else {
     vscode.window.showErrorMessage('Unable to extract owner and repository name from the remote URL.');

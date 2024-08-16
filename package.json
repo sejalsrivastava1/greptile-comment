@@ -17,6 +17,10 @@
       {
         "command": "greptile-comment.addComment",
         "title": "Add Greptile Comment"
+      },
+      {
+        "command": "greptile-comment.indexRepository",
+        "title": "Index Repository"
       }
     ],
     "menus": {

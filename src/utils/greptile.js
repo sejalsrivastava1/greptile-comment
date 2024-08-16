@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as vscode from "vscode";
 
 export async function queryGreptile(messages, repositories) {
   try {
@@ -59,3 +60,29 @@ export async function getRepositoryDetails(repositoryId) {
   }
 }
 
+export async function indexRepository(remote, repository, branch) {
+  const options = {
+    method: "POST",
+    url: "https://api.greptile.com/v2/repositories",
+    headers: {
+      Authorization: `Bearer ${process.env.GREPTILE_API_KEY}`,
+      "X-GitHub-Token": process.env.GIT_TOKEN,
+      "Content-Type": "application/json",
+    },
+    data: {
+      remote: remote,
+      repository: repository,
+      branch: branch,
+      reload: true,
+      notify: true,
+    },
+  };
+
+  try {
+    const response = await axios(options);
+    console.log(response.data);
+  } catch (err) {
+    vscode.window.showErrorMessage("Couldn't index repository");
+    console.error(err);
+  }
+}

@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { queryGreptile, getRepositoryDetails } from "./utils/greptile.js";
+import { queryGreptile, indexRepository } from "./utils/greptile.js";
 import { getGitRepoDetails } from "./utils/git.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -8,28 +8,32 @@ import { v4 as uuidv4 } from "uuid";
 /**
  * @param {vscode.ExtensionContext} context
  */
-function activate(context) {
-  /** // Register the context menu item
-  const contextMenu = vscode.commands.registerCommand(
-    "grepitle-comment.showContextMenu",
-    function () {
-      vscode.commands.executeCommand("greptile-comment.addComment");
-    }
-  );
+export function activate(context) {
 
-  context.subscriptions.push(contextMenu);
-   */
+  const index = vscode.commands.registerCommand("greptile-comment.indexRepository",
+    async function () {
+      const { owner, repoName, currentBranch }  = await details();
+      const repo =   {
+        remote: "github",
+        branch: `${currentBranch}`,
+        repository: `${owner}/${repoName}`,
+      }
+      await indexRepository(repo.remote, repo.repository, repo.branch);
+    }
+  )
+  context.subscriptions.push(index);
   const disposable = vscode.commands.registerCommand(
     "greptile-comment.addComment",
-    function () {
+    async function () {
       const editor = vscode.window.activeTextEditor;
 
       if (editor) {
         const currSelection = editor.selection;
         const selectedText = editor.document.getText(currSelection);
-
+        
         if (selectedText) {
-          const description = `\\ ${generateDescription(selectedText)}`;
+          const generatedDescription = await generateDescription(selectedText);
+          const description = `/** ${generatedDescription} */`;
 
           editor.edit((editBuilder) => {
             editBuilder.insert(currSelection.start, `${description}\n`);
@@ -46,14 +50,14 @@ function activate(context) {
   context.subscriptions.push(disposable);
 }
 
-async function generateDescription(text) {
-  // Simple description generation (can be replaced with a more sophisticated approach)
-
+async function details() {
   const { owner, repoName, currentBranch } = await getGitRepoDetails();
-  /**
-    const repo = `github:${currentBranch}:${owner}/${repoName}`;
-		const repoResponse = await getRepositoryDetails(repo).response;
-*/
+  return { owner, repoName, currentBranch };
+}
+async function generateDescription(text) {
+
+  const { owner, repoName, currentBranch } = await details();
+
   const repoObj = [
     {
       remote: "github",
@@ -71,6 +75,7 @@ async function generateDescription(text) {
   ];
 
   const answer = await queryGreptile(message, repoObj);
+  console.log(answer);
 
   const description = answer.sources.summary;
 
@@ -78,9 +83,5 @@ async function generateDescription(text) {
 }
 
 // This method is called when your extension is deactivated
-function deactivate() {}
+export function deactivate() {}
 
-module.exports = {
-  activate,
-  deactivate,
-};
