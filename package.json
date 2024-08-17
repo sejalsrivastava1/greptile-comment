@@ -47,7 +47,7 @@
         {
           "command": "greptile-comment.addComment1",
           "group": "1_modification@1",
-          "when": "editorLangId == javascript || editorLangId == java || editorLangId == c++ || editorLangId == php"
+          "when": "editorLangId == javascript || editorLangId == java || editorLangId == cpp || editorLangId == c || editorLangId == php"
         },
         {
           "command": "greptile-comment.addComment2",

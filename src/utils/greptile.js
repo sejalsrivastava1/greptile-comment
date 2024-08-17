@@ -47,7 +47,7 @@ export async function indexRepository(remote, repository, branch) {
     method: "POST",
     url: "https://api.greptile.com/v2/repositories",
     headers: {
-      "X-GitHub-Token": `${env.GIT_TOKEN}`,
+      "X-GitHub-Token": `${env.GITHUB_TOKEN}`,
       Authorization: `Bearer ${env.GREPTILE_API_KEY}`,
       "Content-Type": "application/json",
     },
@@ -62,6 +62,7 @@ export async function indexRepository(remote, repository, branch) {
     const response = await axios(options);
     vscode.window.showInformationMessage(`${response.statusText}`);
   } catch (err) {
+    console.log(options)
     console.error(err);
   }
 }
