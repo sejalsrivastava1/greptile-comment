@@ -19,7 +19,7 @@ export const env = {
 ```
 - install all required packages with npm install
 - build the extension with npm run compile
-- open debugging mode with F5 and enter the extension development host -- open the repo that you want to access
+- while inside a .js file, open debugging mode with F5 and enter the extension development host -- open the repo that you want to access
 
 ## usage
 ### #1 index repo
