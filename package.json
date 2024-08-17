@@ -15,23 +15,47 @@
   "contributes": {
     "commands": [
       {
-        "command": "greptile-comment.addComment",
-        "title": "Add Greptile Comment"
+        "command": "greptile-comment.addFunctionComment",
+        "title": "Add Function Description"
       },
       {
         "command": "greptile-comment.indexRepository",
         "title": "Index Repository"
+      },
+      {
+        "command": "greptile-comment.addComment",
+        "title": "Add Greptile Comment"
       }
     ],
     "menus": {
       "editor/context": [
         {
+          "command": "greptile-comment.indexRepository",
+          "group": "4_search",
+          "when": "editorFocus"
+        },
+        {
+          "submenu": "greptile-comment",
+          "group": "1_modification"
+        }
+      ],
+      "greptile-comment": [
+        {
           "command": "greptile-comment.addComment",
-          "group": "1_modification",
-          "when": "editorHasSelection"
+          "group": "1_modification@1"
+        },
+        {
+          "command": "greptile-comment.addFunctionComment",
+          "group": "1_modification@2"
         }
       ]
-    }
+    },
+    "submenus": [
+      {
+        "id": "greptile-comment",
+        "label": "Add Comment"
+      }
+    ]
   },
   "scripts": {
     "compile": "npm run check-types && node esbuild.js",
