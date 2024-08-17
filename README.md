@@ -23,8 +23,21 @@ export const env = {
 
 ## usage
 ### #1 index repo
+
+
+https://github.com/user-attachments/assets/47731fb0-1903-44fd-98be-5ab616166afe
+
+
 ### #2 add comment
+
+https://github.com/user-attachments/assets/32237c5a-1eeb-48d6-89e3-4a24acbc3292
+
+
 ### #3 add function description
+
+https://github.com/user-attachments/assets/3e204550-c270-4201-9aa4-bcfbfb2193a5
+
+
 
 ## 🙊 caveats
 - only supports github repositories at this point
