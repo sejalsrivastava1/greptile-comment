@@ -23,7 +23,11 @@
         "title": "Index Repository"
       },
       {
-        "command": "greptile-comment.addComment",
+        "command": "greptile-comment.addComment1",
+        "title": "Add Greptile Comment"
+      },
+      {
+        "command": "greptile-comment.addComment2",
         "title": "Add Greptile Comment"
       }
     ],
@@ -41,8 +45,14 @@
       ],
       "greptile-comment": [
         {
-          "command": "greptile-comment.addComment",
-          "group": "1_modification@1"
+          "command": "greptile-comment.addComment1",
+          "group": "1_modification@1",
+          "when": "editorLangId == javascript || editorLangId == java || editorLangId == c++ || editorLangId == php"
+        },
+        {
+          "command": "greptile-comment.addComment2",
+          "group": "1_modification@1",
+          "when": "editorLangId == python || editorLangId == ruby || editorLangId == r"
         },
         {
           "command": "greptile-comment.addFunctionComment",
@@ -58,7 +68,7 @@
     ]
   },
   "scripts": {
-    "compile": "npm run check-types && node esbuild.js",
+    "compile": "node esbuild.js",
     "check-types": "tsc --noEmit",
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.js --watch",
@@ -72,7 +82,7 @@
     "@types/vscode": "^1.92.0",
     "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.4.0",
-    "esbuild": "^0.23.0",
+    "esbuild": "^0.23.1",
     "eslint": "^8.57.0",
     "typescript": "^5.4.5"
   },
