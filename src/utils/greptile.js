@@ -31,7 +31,7 @@ export async function getRepositoryDetails(repositoryId) {
       `https://api.greptile.com/v2/repositories/${repositoryId}`,
       {
         headers: {
-          Authorization: `Bearer ${process.env.GREPTILE_API_KEY}`,
+          Authorization: `Bearer ${env.GREPTILE_API_KEY}`,
         },
       }
     );
@@ -47,8 +47,8 @@ export async function indexRepository(remote, repository, branch) {
     method: "POST",
     url: "https://api.greptile.com/v2/repositories",
     headers: {
-      "X-GitHub-Token": `${process.env.GIT_TOKEN}`,
-      Authorization: `Bearer ${process.env.GREPTILE_API_KEY}`,
+      "X-GitHub-Token": `${env.GIT_TOKEN}`,
+      Authorization: `Bearer ${env.GREPTILE_API_KEY}`,
       "Content-Type": "application/json",
     },
     data: {
