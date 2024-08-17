@@ -5,6 +5,7 @@
 - make a env.js file inside the src folder
 - put your greptile api key and github personal access token inside env.js
 ```
+// env.js
 export const env = {
   GREPTILE_API_KEY: "<api-key>",
   GITHUB_TOKEN: "<github-pat>",
