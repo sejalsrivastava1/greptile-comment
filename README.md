@@ -1,7 +1,7 @@
 # greptile-comment
 ## a vscode extension using greptile to write code comments for you
 ## 👾 requirements
-- vscode v1.80.0 or up
+- >=vscode v1.80.0
 - npm
 ## 📈 current features
 - add one-line comments to selected blocks of code
