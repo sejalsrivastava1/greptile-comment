@@ -1,10 +1,10 @@
 import * as vscode from "vscode";
 import { indexRepository } from "./utils/greptile";
 import {
-  details,
   generateFunctionDescription,
   generateDescription,
 } from "./utils/extension-utils";
+import { getGitRepoDetails } from "./utils/git";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -15,7 +15,7 @@ export function activate(context) {
   const index = vscode.commands.registerCommand(
     "greptile-comment.indexRepository",
     async function () {
-      const { owner, repoName, currentBranch } = await details();
+      const { owner, repoName, currentBranch } = await getGitRepoDetails();
       const repo = {
         remote: "github",
         branch: `${currentBranch}`,
@@ -24,7 +24,7 @@ export function activate(context) {
       await indexRepository(repo.remote, repo.repository, repo.branch);
     }
   );
-  
+
   context.subscriptions.push(index);
 
   const functionComment = vscode.commands.registerCommand(

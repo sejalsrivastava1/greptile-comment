@@ -2,13 +2,9 @@ import { queryGreptile } from "./greptile.js";
 import { getGitRepoDetails } from "./git.js";
 import { v4 as uuidv4 } from "uuid";
 
-export async function details() {
-  const { owner, repoName, currentBranch } = await getGitRepoDetails();
-  return { owner, repoName, currentBranch };
-}
 
 export async function generateFunctionDescription(text) {
-  const { owner, repoName, currentBranch } = await details();
+  const { owner, repoName, currentBranch } = await getGitRepoDetails();
 
   const repoObj = [
     {
@@ -35,7 +31,7 @@ export async function generateFunctionDescription(text) {
 }
 
 export async function generateDescription(text) {
-  const { owner, repoName, currentBranch } = await details();
+  const { owner, repoName, currentBranch } = await getGitRepoDetails();
 
   const repoObj = [
     {
@@ -56,7 +52,5 @@ export async function generateDescription(text) {
   const answer = await queryGreptile(message, repoObj);
   console.log(answer);
 
-  const description = answer;
-
-  return description;
+  return answer;
 }
